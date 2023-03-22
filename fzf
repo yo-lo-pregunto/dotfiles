@@ -1,0 +1,37 @@
+#!/bin/bash
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export FZF_DEFAULT_OPTS="--ansi --no-height"
+
+# CTRL T. View files
+export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="
+  --preview 'bat -n --color=always --line-range=:50 {} '
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+# CTRL R. Commands History
+# CTRL-/ to toggle small preview window to see the full command
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --color header:italic"
+
+# ALT C. View Directory
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="--preview 'tree -C {}' | head -50"
+
+# Others
+
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}

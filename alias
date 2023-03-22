@@ -1,0 +1,4 @@
+#!/bin/bash
+
+alias vi=nvim
+alias rg="rg --column --line-number --no-heading --color=always --smart-case"
