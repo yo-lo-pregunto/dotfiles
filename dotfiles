@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Prompt
-[ -f /home/yo-lo-pregunto/.config/dotfiles/prompt ] && source /home/yo-lo-pregunto/.config/dotfiles/prompt
+[ -f ~/.config/dotfiles/prompt ] && source ~/.config/dotfiles/prompt
 # Alias
-[ -f /home/yo-lo-pregunto/.config/dotfiles/alias ] && source /home/yo-lo-pregunto/.config/dotfiles/alias
+[ -f ~/.config/dotfiles/alias ] && source ~/.config/dotfiles/alias
 
 # Fzf
-[ -f /home/yo-lo-pregunto/.config/dotfiles/fzf ] && source /home/yo-lo-pregunto/.config/dotfiles/fzf
+[ -f ~/.config/dotfiles/fzf ] && source ~/.config/dotfiles/fzf
 
